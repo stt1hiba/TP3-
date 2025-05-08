@@ -58,22 +58,22 @@ Noeud* ajouterD(Noeud* head, int valeur) {
         NewE->next = head;
         head->prev = NewE;
     }
-    return NewE; // New node becomes the new head
+    return NewE;
 }
 
 Noeud* ajouterF(Noeud* head, int valeur) {
     Noeud* NewE = cree(valeur);
     if (head == NULL) {
-        return NewE; // If the list is empty, return the new node as the head
+        return NewE; 
     } else {
         Noeud* temp = head;
         while (temp->next != NULL) {
-            temp = temp->next; // Traverse to the end of the list
+            temp = temp->next; 
         }
-        temp->next = NewE; // Link the new node at the end
-        NewE->prev = temp; // Set the previous pointer of the new node
+        temp->next = NewE; 
+        NewE->prev = temp; 
     }
-    return head; // Return the head of the list
+    return head;
 }
 
 int taille(Noeud* head) {
@@ -89,120 +89,120 @@ int taille(Noeud* head) {
 Noeud* insertion(Noeud* head, int valeur, int pos) {
     if (pos < 0 || pos > taille(head)) {
         printf("Position invalide.\n");
-        return head; // Return the original head if position is invalid
+    
     } else if (pos == 0) {
-        return ajouterD(head, valeur); // Insert at the beginning
+        return ajouterD(head, valeur); 
     } else {
         Noeud* NewE = cree(valeur);
         Noeud* temp = head;
         for (int i = 0; i < pos - 1; i++) {
-            temp = temp->next; // Traverse to the node before the desired position
+            temp = temp->next; 
         }
-        NewE->next = temp->next; // Link new node to the next node
-        NewE->prev = temp; // Set the previous pointer of the new node
+        NewE->next = temp->next; 
+        NewE->prev = temp;
         if (temp->next != NULL) {
-            temp->next->prev = NewE; // Update the previous pointer of the next node
+            temp->next->prev = NewE; 
         }
-        temp->next = NewE; // Link the previous node to the new node
+        temp->next = NewE; 
     }
-    return head; // Return the head of the list
+    return head; 
 }
 
 Noeud* rechercher(Noeud* head, int valeur) {
     Noeud* temp = head;
     while (temp != NULL) {
         if (temp->valeur == valeur) {
-            return temp; // Return the node if found
+            return temp; 
         }
         temp = temp->next;
     }
-    return NULL; // Return NULL if not found
+    return NULL; 
 }
 
 Noeud* supprimerD(Noeud* head) {
     if (head != NULL) {
         Noeud* temp = head;
-        head = head->next; // Move head to the next node
+        head = head->next; 
         if (head != NULL) {
-            head->prev = NULL; // Set the previous pointer of the new head to NULL
+            head->prev = NULL; 
         }
-        free(temp); // Free the old head
+        free(temp); 
     }
-    return head; // Return the new head
+    return head;
 }
 
 Noeud* supprimerF(Noeud* head) {
     if (head != NULL) {
         if (head->next == NULL) {
-            free(head); // Free the only node
-            return NULL; // List is now empty
+            free(head); 
+            return NULL;
         } else {
             Noeud* temp = head;
             while (temp->next != NULL) {
-                temp = temp->next; // Traverse to the end of the list
+                temp = temp->next; 
             }
-            temp->prev->next = NULL; // Set the next pointer of the second last node to NULL
-            free(temp); // Free the last node
+            temp->prev->next = NULL; 
+            free(temp); 
         }
     }
-    return head; // Return the head of the list
+    return head; 
 }
 
 Noeud* supprimerP(Noeud* head, int pos) {
     if (pos < 0 || pos >= taille(head)) {
         printf("Position invalide.\n");
-        return head; // Return the original head if position is invalid
+        return head; 
     } else if (pos == 0) {
-        return supprimerD(head); // Delete from the beginning
+        return supprimerD(head); 
     } else {
         Noeud* temp = head;
         for (int i = 0; i < pos; i++) {
-            temp = temp->next; // Traverse to the desired position
+            temp = temp->next; 
         }
-        temp->prev->next = temp->next; // Link the previous node to the next node
+        temp->prev->next = temp->next; 
         if (temp->next != NULL) {
-            temp->next->prev = temp->prev; // Link the next node to the previous node
+            temp->next->prev = temp->prev; 
         }
-        free(temp); // Free the node
+        free(temp); 
     }
-    return head; // Return the head of the list
+    return head; 
 }
 
 Noeud* modifierD(Noeud* head, int valeur) {
     if (head == NULL) {
         printf("La liste est vide. Impossible de modifier.\n");
-        return head; // Return the original head
+        return head; 
     }
-    head->valeur = valeur; // Modify the value of the first node
-    return head; // Return the head of the list
+    head->valeur = valeur; 
+    return head; 
 }
 
 Noeud* modifierF(Noeud* head, int valeur) {
     if (head == NULL) {
         printf("La liste est vide. Impossible de modifier.\n");
-        return head; // Return the original head
+        return head; 
     } else {
         Noeud* temp = head;
         while (temp->next != NULL) {
-            temp = temp->next; // Traverse to the end of the list
+            temp = temp->next; 
         }
-        temp->valeur = valeur; // Modify the value of the last node
+        temp->valeur = valeur; 
     }
-    return head; // Return the head of the list
+    return head; 
 }
 
 Noeud* modifierP(Noeud* head, int pos, int valeur) {
     if (pos < 0 || pos >= taille(head)) {
         printf("Position invalide. Impossible de modifier.\n");
-        return head; // Return the original head
+        return head; 
     } else {
         Noeud* temp = head;
         for (int i = 0; i < pos; i++) {
-            temp = temp->next; // Traverse to the desired position
+            temp = temp->next; 
         }
-        temp->valeur = valeur; // Modify the value of the node
+        temp->valeur = valeur; 
     }
-    return head; // Return the head of the list
+    return head; 
 }
 
 Noeud* triSelection(Noeud* head) {
@@ -216,7 +216,7 @@ Noeud* triSelection(Noeud* head) {
 
         while (temp2 != NULL) {
             if (temp2->valeur < min->valeur) {
-                min = temp2; // Update min if a smaller value is found
+                min = temp2; 
             }
             temp2 = temp2->next;
         }
@@ -224,13 +224,13 @@ Noeud* triSelection(Noeud* head) {
         if (min != temp1) {
             int temp = temp1->valeur;
             temp1->valeur = min->valeur;
-            min->valeur = temp; // Swap values
+            min->valeur = temp; 
         }
 
         temp1 = temp1->next;
     }
 
-    return head; // Return the head of the list
+    return head; 
 }
 
 int main() {
